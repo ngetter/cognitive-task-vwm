@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from databases import Database
 from sqlalchemy import create_engine, MetaData, Table, Column, String, Integer
+import uvicorn
 
 # Initialize the database connection
 DATABASE_URL = "sqlite:///./results.db"
@@ -52,3 +53,7 @@ async def write_data(request: Request):
         await database.execute(query)
 
     return {"status": "success", "received_data": filedata}
+
+if __name__=='__main__':
+    print(__file__)
+    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
